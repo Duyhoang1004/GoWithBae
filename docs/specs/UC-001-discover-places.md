@@ -1,0 +1,167 @@
+# UC-001: Tìm địa điểm phù hợp
+
+**Version:** 1.1 — 15-11-2026  
+**Status:** Draft, chờ duyệt nghiệp vụ; chưa tự coi các PROP/TBD là baseline.  
+**Requirement chính:** [GWB-REQ-G1 v1.1](../requirements/GoWithBae_Requirements_G1_v1.1.md)  
+**Nguồn khách hàng:** §2.2/UI01–02, §3/F01–F02, §7/A03  
+**Truy vết:** FR-01, FR-02, FR-03, FR-04; AC-001, AC-002.
+
+## 1. Overview
+
+| Trường | Nội dung |
+|---|---|
+| Goal | Nhận danh sách địa điểm công khai đáp ứng từ khóa và điều kiện đã chọn. |
+| Primary Actor | Khách truy cập web |
+| Secondary Actors | Máy chủ GoWithBae; dịch vụ email/bản đồ/tệp/lịch chỉ khi thao tác tương ứng cần tích hợp, theo requirement §7 |
+| Trigger | Mở khám phá hoặc gửi yêu cầu tìm |
+| Scope IN | Tìm địa điểm phù hợp trên web G1 theo các FR liên kết |
+| Scope OUT | Chức năng G2, đặt chỗ/thanh toán/app/AI/chat; quyền và thao tác ngoài mục tiêu UC. Điều hướng sang UC khác không tự thực hiện UC đó. |
+
+## 2. Preconditions
+
+- PRE-1: Được truy cập chức năng công khai, không cần đăng nhập. Enforce tại bước 1; kiểm tra lại quyền/trạng thái liên quan tại bước 3–4 trước khi trả dữ liệu hoặc ghi.
+- PRE-2: Dữ liệu dùng để tìm chỉ lấy từ bản đã duyệt đang hiển thị. Enforce tại bước 1; kiểm tra lại quyền/trạng thái liên quan tại bước 3–4 trước khi trả dữ liệu hoặc ghi.
+
+## 3. Postconditions
+
+- POST-1: Kết quả, điều kiện lọc, sắp xếp và thông tin chưa rõ nhất quán; sự kiện tìm/kết quả được ghi không trùng. Được tạo tại bước 4 và phản hồi tại bước 5.
+- POST-2: Quyền riêng tư/phạm vi được giữ; không thay dữ liệu ngoài mục tiêu hoặc thông báo thành công khi bước 4 thất bại. Enforce bước 1, 3–5 và EX-01–04.
+- Nếu use case thất bại: không ghi kết quả nghiệp vụ dở dang như đã hoàn tất; dữ liệu đã lưu thành công không bị báo chưa lưu chỉ vì lỗi thông báo/analytics sau đó.
+
+## 4. Main Flow
+
+| Bước | Actor | Hành động | System Response |
+|---|---|---|---|
+| 1 | Khách truy cập web | Mở khám phá hoặc gửi yêu cầu tìm | Kiểm tra điều kiện công khai và chọn nguồn địa điểm được phép hiển thị. |
+| 2 | Khách truy cập web | Nhập từ khóa, chọn bộ lọc và sắp xếp | Chuẩn hóa từ khóa và giá trị, giữ điều kiện người dùng chọn; chưa tự gửi mỗi ký tự thành lượt tìm. |
+| 3 | Khách truy cập web | Áp dụng tìm kiếm | Kiểm tra nhãn, giá, lịch mở cửa, vị trí; áp dụng AND/OR, chỉ dữ liệu đạt điều kiện và thứ tự ổn định. |
+| 4 | Khách truy cập web | Yêu cầu kết quả | Truy vấn kết quả/thẻ/số lượng và khoảng cách ước tính khi đủ gốc; không cần đăng nhập. |
+| 5 | Khách truy cập web | Xem danh sách hoặc bản đồ | Hiển thị kết quả/empty và cách mở rộng do người dùng chọn; ghi search_submitted/results_shown chống trùng. |
+
+Các xử lý kiểm tra, truy vấn/ghi, chuyển trạng thái, thông báo và analytics trong cột System Response do hệ thống thực hiện, không do actor tự gán trạng thái/quyền.
+
+## 5. Alternate Flows
+
+**AF-01 — Hướng đi hợp lệ khác:** Tại bước 2, từ chối quyền vị trí → nhập khu vực/điểm thủ công rồi tiếp tục bước 3. Bản đồ lỗi → dùng danh sách ở bước 5; không đổi bộ lọc.
+
+## 6. Exception Flows
+
+**EX-01 — PRE/quyền không đạt.**
+- Trigger: không đạt một trong PRE, danh tính/quyền/cấp quyền hết hiệu lực hoặc tài nguyên không được đọc.
+- At step 1 hoặc kiểm tra lại bước 3–4: từ chối và không trả dữ liệu riêng; không chỉ ẩn nút phía client.
+- Recovery: với thao tác tài khoản, đăng nhập lại khi cần; với khách nhận link, chỉ cần link/phiên khách hợp lệ, không bắt đăng nhập để xem. Xin mời lại/liên hệ người có quyền rồi bắt đầu bước 1; không lách bằng đổi id.
+
+**EX-02 — Vi phạm đầu vào hoặc quy tắc nghiệp vụ.**
+- Trigger: Mã lọc sai, bán kính không hợp lệ, giá/giờ chưa rõ mà bộ lọc yêu cầu có thông tin, hoặc địa điểm không công khai: không đưa nơi đó vào kết quả; báo lỗi trường nếu đầu vào sai. 0 kết quả là kết quả hợp lệ, không phải lỗi hệ thống.
+- At step 3; kiểm tra biên/trạng thái lại trước ghi tại bước 4. Không ghi kết quả sai; giải thích trường hoặc điều kiện không đạt.
+- Recovery: sửa đầu vào ở bước 2, hoặc nạp trạng thái mới từ bước 1 rồi thử lại; OQ chặn phải được PO quyết định, không tự đặt mặc định.
+
+**EX-03 — Đọc/ghi hoặc tích hợp phục vụ nghiệp vụ thất bại.**
+- Trigger: timeout, dịch vụ cần thiết không đáp ứng, thao tác đồng thời làm dữ liệu thay đổi hoặc kết quả ghi chưa rõ.
+- At step 4: không trả “thành công” khi chưa có kết quả chắc chắn; hiển thị mã tra cứu và giữ input an toàn có thể dùng lại.
+- Recovery: kiểm tra trạng thái hiện tại trước retry thao tác ghi để không tạo lặp; đọc có thể thử lại; lỗi kéo dài chuyển vận hành tra mã. Với tích hợp có fallback cụ thể, dùng AF-01/requirement §7 thay vì tự bịa dữ liệu.
+
+**EX-04 — Phản hồi/side effect sau thành công gặp lỗi.**
+- Trigger: mất kết nối khi trả kết quả, lỗi thông báo/email/analytics cần thiết sau khi kết quả nghiệp vụ đã được xác lập.
+- At step 5: giữ kết quả đã lưu, không báo sai thành thất bại nghiệp vụ và không lộ bí mật trong log.
+- Recovery: tải lại/tra trạng thái; vận hành theo dõi và retry phần gửi/ghi sự kiện với mã chống trùng. Không tự tạo lại đối tượng nghiệp vụ chỉ để gửi lại thông báo.
+
+## 7. Business Rules
+
+Định nghĩa đầy đủ tại requirement chính §5. Quy tắc áp dụng vào bước và handler dưới đây; exception phải giữ đúng hậu điều kiện riêng của UC, không coi mọi lỗi đều rollback thao tác đã hoàn tất.
+
+| Rule ID | Description và xử lý khi vi phạm | Applies At Step / handler |
+|---|---|---|
+| RULE-01 | Chỉ địa điểm đã duyệt và đang hiển thị được khám phá/tìm/chốt mới Khi vi phạm: Loại khỏi kết quả; chốt thất bại yêu cầu chọn lại; lịch sử giữ tên/cảnh báo theo quyền | Bước 1/3–4; EX-01/EX-02/EX-03 |
+| RULE-02 | Các nhóm lọc kết hợp AND; hoạt động/phong cách/cảnh quan/dịp OR; không khí/tiện ích/đặc điểm AND Khi vi phạm: Không trả kết quả thiếu bất kỳ điều kiện bắt buộc; không tự nới | Bước 1/3–4; EX-01/EX-02/EX-03 |
+| RULE-03 | Giá lọc là giá chuẩn cho hai người, không phải lấy giao của khoảng giá. Khoảng nguồn: miễn phí, dưới 200k, 200k–<400k, 400k–700k, >700k Khi vi phạm: Giá chưa biết loại khỏi lọc ngân sách; giá không hợp lệ không lưu. [PROP] Tách miễn phí `p=0`; dưới 200k là `0<p<200000`, đến 700k gồm đúng 700000; OQ-03 | Bước 1/3–4; EX-01/EX-02/EX-03 |
+| RULE-04 | Không có dữ liệu giá/giờ/tiện ích không đồng nghĩa bằng 0/đang mở/không có Khi vi phạm: Hiển thị “Chưa có thông tin”; không thỏa bộ lọc cần chứng minh thuộc tính đó | Bước 1/3–4; EX-01/EX-02/EX-03 |
+| RULE-05 | Lịch ngoại lệ phải được đối chiếu cùng lịch tuần; thời điểm kế hoạch tương lai; đã xác minh đóng cửa thì chặn tạo Khi vi phạm: Đổi giờ hoặc chọn nơi khác; chưa có giờ chỉ cảnh báo khi tạo nhưng không đạt lọc đang mở. [PROP] Ngoại lệ ưu tiên lịch tuần; ranh giới/qua đêm OQ-04 | Bước 1/3–4; EX-01/EX-02/EX-03 |
+| RULE-25 | Sự kiện có mã chống trùng; báo cáo tách khách/tài khoản, tự báo/đơn; không ghi dữ liệu nhạy cảm đã cấm Khi vi phạm: Loại sự kiện lặp khỏi tổng; không hợp nhất xuyên thiết bị khi chưa có căn cứ | Bước 3–5; EX-02/EX-03/EX-04 |
+
+## 8. Data Requirements
+
+**Input và validation:**
+
+- query: chuỗi tùy chọn — tên/khu vực/hoạt động; tìm không dấu và không phân biệt hoa/thường.
+- filters: tập mã danh mục hợp lệ; ngân sách VND cho hai người; ngày giờ Việt Nam; tọa độ/bán kính theo OQ-05.
+- sort: mặc định, gần nhất hoặc giá tăng; gần nhất phải có điểm xuất phát phù hợp.
+- collection_id: mã tùy chọn của bộ sưu tập trong lịch hiển thị; không cho vượt điều kiện xuất bản.
+
+**Output / state:** Kết quả, điều kiện lọc, sắp xếp và thông tin chưa rõ nhất quán; sự kiện tìm/kết quả được ghi không trùng. Dữ liệu nghiệp vụ chi tiết tại requirement §6; giới hạn chưa có số phải theo OQ-21, không tự gán giá trị.
+
+**Sequence diagram:** [file Mermaid](./UC-001-discover-places.mermaid).
+
+```mermaid
+sequenceDiagram
+    actor Person as Khách truy cập web
+    participant Web as Web
+    participant Server as Máy chủ nghiệp vụ
+    participant Data as Dữ liệu
+    Person->>Web: Mở khám phá hoặc gửi yêu cầu tìm
+    Web->>Server: Yêu cầu và danh tính hoặc cấp quyền
+    Server->>Server: Bước 1, kiểm tra PRE và quyền
+    alt EX-01, không có quyền hoặc sai điều kiện
+        Server-->>Web: Từ chối, không lộ dữ liệu riêng
+    else Đủ điều kiện
+        Person->>Web: Nhập từ khóa, chọn bộ lọc và sắp xếp
+        Web->>Server: Input nghiệp vụ
+        Server->>Server: Bước 3, validation và RULE
+        alt EX-02, vi phạm quy tắc
+            Server-->>Web: Lỗi cụ thể, giữ dữ liệu có thể sửa
+        else Hợp lệ
+            Server->>Data: Bước 4, đọc hoặc ghi theo quyền
+            alt EX-03, xử lý hoặc lưu thất bại
+                Data-->>Server: Không thành công hoặc cần kiểm tra trạng thái
+                Server-->>Web: Không báo thành công, mã tra cứu và cách thử lại
+            else Thành công
+                Data-->>Server: Kết quả nhất quán
+                Server-->>Web: Bước 5, kết quả và thông báo phù hợp
+                Web-->>Person: Nhận danh sách địa điểm công khai đáp ứng từ khóa và điều kiện đã chọn.
+            end
+        end
+    end
+```
+
+**State machine:** UC này không thêm vòng đời trạng thái riêng. Nếu tham chiếu một entity có trạng thái, áp dụng state machine ở requirement §7; không tạo trạng thái giả chỉ để vẽ sơ đồ.
+
+## 9. Open Questions
+
+OQ-03, OQ-04, OQ-05, OQ-20
+
+Owner, mốc quyết định và mức chặn được ghi tại requirement §13. UC chỉ được baseline sau khi các câu hỏi ảnh hưởng tới nhánh triển khai đã được trả lời hoặc nhánh đó được PO loại khỏi phạm vi rõ ràng.
+
+## 10. Notes và Acceptance Criteria
+
+- Đây là đặc tả yêu cầu, chưa xây phần mềm; nội dung CR-001 mang nhãn CONF, phần PROP/TBD khác vẫn chưa được duyệt; không có bằng chứng kiểm thử runtime.
+- Không chọn framework/API/token cụ thể; task tham chiếu hành vi và validation thay vì khóa giải pháp sớm.
+- Source/DER/PROP/TBD tuân quy ước requirement chính; cần đọc OQ trước khi dùng làm input coding agent.
+
+| Mã | Given | When | Then |
+|---|---|---|---|
+| AC-001 | Có nơi A giá 300.000 cho hai người và đủ hai tiện ích, nơi B thiếu một tiện ích | tìm không dấu và lọc 200.000–<400.000 cùng hai tiện ích | chỉ nơi A đạt lọc, ghi đúng một lượt tìm |
+| AC-002 | Bản đồ lỗi và người dùng không cấp vị trí | mở kết quả theo khu vực nhập thủ công | danh sách vẫn dùng được và bộ lọc không tự thay đổi |
+
+
+Ngoài các ví dụ Given/When/Then này, QA phải kiểm thử EX-01–04, các RULE áp dụng và boundary sau khi OQ đã được quyết định; danh sách này không thay thế toàn bộ kế hoạch kiểm thử. Các nội dung CR-001 đã CONF, chỉ chi tiết còn mở mới cần OQ.
+
+## Verification Report — UC-001
+
+### Blocking Issues / Open Questions cần unblock
+
+OQ-03, OQ-04, OQ-05, OQ-20
+
+Các OQ có mức chặn ở requirement §13 ảnh hưởng trực tiếp bước 3–4. Không kết luận “ready to code” khi chưa chốt chính sách liên quan.
+
+### Warnings
+
+- Giới hạn input, cấu hình dịch vụ/quyền/retention phải duyệt theo phạm vi; task chưa phải ước lượng ngày công hay giải pháp cuối.
+- Sơ đồ diễn tả luồng chính và nhánh lỗi; chi tiết AF/EX bằng văn bản là một phần đặc tả bắt buộc.
+
+### Passed — kiểm tra tài liệu, không phải test hệ thống
+
+- Mỗi PRE có kiểm tra ở bước 1 và kiểm tra lại trước kết quả tại bước 3–4.
+- POST-1 có xử lý ở bước 4–5; POST-2 được giữ bởi kiểm tra quyền và EX-01–04.
+- RULE có bước áp dụng và handler; AF có điểm quay lại/kết thúc; EX có Recovery.
+- Một primary actor và một mục tiêu; không có bước thực thi chức năng G2.
+- Trạng thái có điều kiện vào/ra hoặc trạng thái kết thúc có chủ ý; PROP/TBD không được coi là chính sách đã duyệt.

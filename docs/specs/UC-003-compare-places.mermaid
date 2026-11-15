@@ -1,0 +1,28 @@
+sequenceDiagram
+    actor Person as Khách truy cập web
+    participant Web as Web
+    participant Server as Máy chủ nghiệp vụ
+    participant Data as Dữ liệu
+    Person->>Web: Mở chức năng so sánh
+    Web->>Server: Yêu cầu và danh tính hoặc cấp quyền
+    Server->>Server: Bước 1, kiểm tra PRE và quyền
+    alt EX-01, không có quyền hoặc sai điều kiện
+        Server-->>Web: Từ chối, không lộ dữ liệu riêng
+    else Đủ điều kiện
+        Person->>Web: Thêm hoặc bỏ địa điểm
+        Web->>Server: Input nghiệp vụ
+        Server->>Server: Bước 3, validation và RULE
+        alt EX-02, vi phạm quy tắc
+            Server-->>Web: Lỗi cụ thể, giữ dữ liệu có thể sửa
+        else Hợp lệ
+            Server->>Data: Bước 4, đọc hoặc ghi theo quyền
+            alt EX-03, xử lý hoặc lưu thất bại
+                Data-->>Server: Không thành công hoặc cần kiểm tra trạng thái
+                Server-->>Web: Không báo thành công, mã tra cứu và cách thử lại
+            else Thành công
+                Data-->>Server: Kết quả nhất quán
+                Server-->>Web: Bước 5, kết quả và thông báo phù hợp
+                Web-->>Person: Đối chiếu 2–3 địa điểm trên cùng tiêu chí và chọn nơi muốn lên kế hoạch.
+            end
+        end
+    end

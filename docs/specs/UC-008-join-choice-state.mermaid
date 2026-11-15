@@ -1,0 +1,6 @@
+stateDiagram-v2
+    [*] --> Waiting : Tạo tập hợp lệ
+    Waiting --> Voting : Người nhận tham gia, cố định tập
+    Voting --> Voting : Sửa phiếu trước chốt
+    Voting --> Finalized : PROP OQ-08: lưu kế hoạch và chốt thành công
+    Finalized --> [*] : Chỉ đọc theo quyền

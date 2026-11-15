@@ -1,0 +1,7 @@
+stateDiagram-v2
+    [*] --> New : Khách gửi
+    New --> Checking : Nhân sự nhận
+    Checking --> Resolved : Đóng có ghi chú xử lý
+    Checking --> Insufficient : Đóng không đủ căn cứ, có ghi chú
+    Resolved --> Checking : Mở lại có quyền
+    Insufficient --> Checking : Mở lại có quyền

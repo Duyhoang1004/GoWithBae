@@ -1,0 +1,10 @@
+stateDiagram-v2
+    [*] --> Pending : Lời nhắc của kế hoạch hợp lệ
+    Pending --> Shown : Đến giờ hẹn và mở web theo quyền
+    Pending --> Cancelled : Kế hoạch đã hủy
+    Shown --> Dismissed : Bỏ qua, chỉ đóng nhắc
+    Shown --> Answered : Đã đi, ghi lượt không trùng
+    Shown --> Cancelled : Kế hoạch đã hủy
+    Dismissed --> [*] : Không tự hiện lại cùng lời nhắc
+    Answered --> [*]
+    Cancelled --> [*]

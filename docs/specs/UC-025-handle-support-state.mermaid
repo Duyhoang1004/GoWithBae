@@ -1,0 +1,8 @@
+stateDiagram-v2
+    [*] --> New : Thành viên gửi
+    New --> InProgress : Nhân sự nhận
+    InProgress --> WaitingCustomer : Hỏi bổ sung
+    WaitingCustomer --> InProgress : Khách phản hồi
+    InProgress --> Closed : Nhân sự đóng
+    WaitingCustomer --> Closed : PROP OQ-13: chính sách đóng
+    Closed --> InProgress : TBD OQ-13: mở lại

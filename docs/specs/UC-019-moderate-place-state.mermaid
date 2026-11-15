@@ -1,0 +1,9 @@
+stateDiagram-v2
+    [*] --> Draft : Biên tập tạo
+    Draft --> Pending : Gửi duyệt đủ dữ liệu
+    Pending --> Draft : Trả về kèm lý do
+    Pending --> Published : Duyệt đạt điều kiện
+    Published --> Hidden : Tạm ẩn có quyền
+    Published --> Inactive : Ngừng hoạt động
+    Hidden --> Pending : PROP OQ-15: xác minh và gửi duyệt lại
+    Inactive --> Pending : PROP OQ-15: khôi phục qua duyệt

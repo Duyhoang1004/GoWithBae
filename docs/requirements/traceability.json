@@ -1,0 +1,707 @@
+[
+  {
+    "id": "UC-001",
+    "title": "Tìm địa điểm phù hợp",
+    "actor": "Khách truy cập web",
+    "source": "§2.2/UI01–02, §3/F01–F02, §7/A03",
+    "fr": [
+      "FR-01",
+      "FR-02",
+      "FR-03",
+      "FR-04"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-02",
+      "RULE-03",
+      "RULE-04",
+      "RULE-05",
+      "RULE-25"
+    ],
+    "ac": [
+      "AC-001",
+      "AC-002"
+    ],
+    "questions": [
+      3,
+      4,
+      5,
+      20
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-002",
+    "title": "Xem hồ sơ địa điểm",
+    "actor": "Khách truy cập web",
+    "source": "§4.1–4.3/F03",
+    "fr": [
+      "FR-05"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-04",
+      "RULE-28",
+      "RULE-25"
+    ],
+    "ac": [
+      "AC-003",
+      "AC-004"
+    ],
+    "questions": [
+      11
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-003",
+    "title": "So sánh địa điểm",
+    "actor": "Khách truy cập web",
+    "source": "§4.4/F04",
+    "fr": [
+      "FR-06"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-04",
+      "RULE-06",
+      "RULE-25"
+    ],
+    "ac": [
+      "AC-005",
+      "AC-006"
+    ],
+    "questions": [
+      11
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-004",
+    "title": "Đăng nhập tài khoản",
+    "actor": "Người dùng muốn đăng nhập",
+    "source": "§6.1/F08, §11.2",
+    "fr": [
+      "FR-07"
+    ],
+    "rules": [
+      "RULE-16",
+      "RULE-17",
+      "RULE-27"
+    ],
+    "ac": [
+      "AC-007",
+      "AC-008"
+    ],
+    "questions": [
+      6,
+      17
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-005",
+    "title": "Quản lý tài khoản cá nhân",
+    "actor": "Thành viên",
+    "source": "§6.1, §6.4",
+    "fr": [
+      "FR-08",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-16",
+      "RULE-17",
+      "RULE-27",
+      "RULE-12"
+    ],
+    "ac": [
+      "AC-009",
+      "AC-010"
+    ],
+    "questions": [
+      6,
+      17,
+      21
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-006",
+    "title": "Quản lý danh sách đã lưu",
+    "actor": "Thành viên",
+    "source": "§5.1/F05",
+    "fr": [
+      "FR-09",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-07",
+      "RULE-01",
+      "RULE-22",
+      "RULE-17",
+      "RULE-25"
+    ],
+    "ac": [
+      "AC-011",
+      "AC-012"
+    ],
+    "questions": [
+      11,
+      21
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-007",
+    "title": "Tạo phiên cùng chọn",
+    "actor": "Thành viên tạo lời mời",
+    "source": "§5.2/F06",
+    "fr": [
+      "FR-10"
+    ],
+    "rules": [
+      "RULE-07",
+      "RULE-08",
+      "RULE-09",
+      "RULE-12",
+      "RULE-17",
+      "RULE-25"
+    ],
+    "ac": [
+      "AC-013",
+      "AC-014"
+    ],
+    "questions": [
+      7,
+      11
+    ],
+    "state": "choice"
+  },
+  {
+    "id": "UC-008",
+    "title": "Tham gia phiên cùng chọn",
+    "actor": "Người nhận lời mời",
+    "source": "§5.2 + CR-001 ngày 15-11-2026",
+    "fr": [
+      "FR-11",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-08",
+      "RULE-09",
+      "RULE-12",
+      "RULE-30"
+    ],
+    "ac": [
+      "AC-015",
+      "AC-016",
+      "AC-055",
+      "AC-056"
+    ],
+    "questions": [
+      7,
+      9,
+      21
+    ],
+    "state": "choice"
+  },
+  {
+    "id": "UC-009",
+    "title": "Bỏ phiếu và xem lựa chọn trùng",
+    "actor": "Người tham gia phiên cùng chọn",
+    "source": "§5.2",
+    "fr": [
+      "FR-12",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-09",
+      "RULE-10",
+      "RULE-11",
+      "RULE-12",
+      "RULE-25",
+      "RULE-30"
+    ],
+    "ac": [
+      "AC-017",
+      "AC-018"
+    ],
+    "questions": [
+      7,
+      8,
+      9
+    ],
+    "state": "choice"
+  },
+  {
+    "id": "UC-010",
+    "title": "Chốt địa điểm từ phiên cùng chọn",
+    "actor": "Người tạo phiên",
+    "source": "§5.2–5.3",
+    "fr": [
+      "FR-13"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-05",
+      "RULE-11",
+      "RULE-13",
+      "RULE-14",
+      "RULE-17",
+      "RULE-25"
+    ],
+    "ac": [
+      "AC-019",
+      "AC-020"
+    ],
+    "questions": [
+      8,
+      10,
+      11
+    ],
+    "state": "choice"
+  },
+  {
+    "id": "UC-011",
+    "title": "Thu hồi hoặc cấp lại lời mời",
+    "actor": "Người tạo phiên",
+    "source": "§5.2, §6.4",
+    "fr": [
+      "FR-14",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-09",
+      "RULE-10",
+      "RULE-12",
+      "RULE-14",
+      "RULE-17"
+    ],
+    "ac": [
+      "AC-021",
+      "AC-022"
+    ],
+    "questions": [
+      7,
+      9
+    ],
+    "state": "grant"
+  },
+  {
+    "id": "UC-012",
+    "title": "Tạo kế hoạch buổi hẹn",
+    "actor": "Thành viên",
+    "source": "§5.3/F07",
+    "fr": [
+      "FR-15",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-04",
+      "RULE-05",
+      "RULE-13",
+      "RULE-14",
+      "RULE-17",
+      "RULE-25"
+    ],
+    "ac": [
+      "AC-023",
+      "AC-024"
+    ],
+    "questions": [
+      4,
+      9,
+      10,
+      11,
+      21
+    ],
+    "state": "plan"
+  },
+  {
+    "id": "UC-013",
+    "title": "Xem và quản lý kế hoạch",
+    "actor": "Người tạo kế hoạch",
+    "source": "§5.3",
+    "fr": [
+      "FR-16",
+      "FR-17",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-05",
+      "RULE-13",
+      "RULE-14",
+      "RULE-15",
+      "RULE-17",
+      "RULE-24"
+    ],
+    "ac": [
+      "AC-025",
+      "AC-026"
+    ],
+    "questions": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "state": "plan"
+  },
+  {
+    "id": "UC-014",
+    "title": "Xử lý lời nhắc Đi chưa và xác nhận đã đi",
+    "actor": "Người được nhắc có quyền theo OQ-10",
+    "source": "§5.3, §10 + CR-001 ngày 15-11-2026",
+    "fr": [
+      "FR-18",
+      "FR-35"
+    ],
+    "rules": [
+      "RULE-14",
+      "RULE-15",
+      "RULE-25",
+      "RULE-29"
+    ],
+    "ac": [
+      "AC-027",
+      "AC-028",
+      "AC-057",
+      "AC-058"
+    ],
+    "questions": [
+      10,
+      25
+    ],
+    "state": "reminder"
+  },
+  {
+    "id": "UC-015",
+    "title": "Báo thông tin địa điểm sai",
+    "actor": "Khách hoặc thành viên",
+    "source": "§6.2/F09",
+    "fr": [
+      "FR-19"
+    ],
+    "rules": [
+      "RULE-18",
+      "RULE-27"
+    ],
+    "ac": [
+      "AC-029",
+      "AC-030"
+    ],
+    "questions": [
+      21
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-016",
+    "title": "Gửi và theo dõi yêu cầu hỗ trợ",
+    "actor": "Thành viên",
+    "source": "§6.3/F10",
+    "fr": [
+      "FR-20",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-17",
+      "RULE-19",
+      "RULE-27"
+    ],
+    "ac": [
+      "AC-031",
+      "AC-032"
+    ],
+    "questions": [
+      13,
+      21
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-017",
+    "title": "Xem thông báo liên quan",
+    "actor": "Thành viên",
+    "source": "§6.4",
+    "fr": [
+      "FR-21",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-12",
+      "RULE-14",
+      "RULE-19",
+      "RULE-24"
+    ],
+    "ac": [
+      "AC-033",
+      "AC-034"
+    ],
+    "questions": [
+      9,
+      14
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-018",
+    "title": "Biên tập và gửi duyệt địa điểm",
+    "actor": "Nhân viên biên tập",
+    "source": "§4.1–4.2, §7/A01",
+    "fr": [
+      "FR-23",
+      "FR-31"
+    ],
+    "rules": [
+      "RULE-04",
+      "RULE-20",
+      "RULE-21",
+      "RULE-22",
+      "RULE-27",
+      "RULE-28"
+    ],
+    "ac": [
+      "AC-035",
+      "AC-036"
+    ],
+    "questions": [
+      3,
+      4,
+      15,
+      18,
+      21
+    ],
+    "state": "place"
+  },
+  {
+    "id": "UC-019",
+    "title": "Duyệt và điều chỉnh hiển thị địa điểm",
+    "actor": "Nhân viên duyệt nội dung",
+    "source": "§4.2, §7/A01, §7.3",
+    "fr": [
+      "FR-24",
+      "FR-31"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-20",
+      "RULE-21",
+      "RULE-22",
+      "RULE-28"
+    ],
+    "ac": [
+      "AC-037",
+      "AC-038"
+    ],
+    "questions": [
+      11,
+      15,
+      18
+    ],
+    "state": "place"
+  },
+  {
+    "id": "UC-020",
+    "title": "Quản lý danh mục và nhãn",
+    "actor": "Nhân viên có quyền danh mục",
+    "source": "§7/A02",
+    "fr": [
+      "FR-25"
+    ],
+    "rules": [
+      "RULE-02",
+      "RULE-21",
+      "RULE-22"
+    ],
+    "ac": [
+      "AC-039",
+      "AC-040"
+    ],
+    "questions": [
+      18
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-021",
+    "title": "Biên tập bộ sưu tập khám phá",
+    "actor": "Nhân viên có quyền bộ sưu tập",
+    "source": "§7/A03",
+    "fr": [
+      "FR-26"
+    ],
+    "rules": [
+      "RULE-01",
+      "RULE-21",
+      "RULE-27",
+      "RULE-28"
+    ],
+    "ac": [
+      "AC-041",
+      "AC-042"
+    ],
+    "questions": [
+      1,
+      18,
+      21
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-022",
+    "title": "Quản lý tài khoản và vai trò",
+    "actor": "Quản trị cao nhất",
+    "source": "§7/A04, §7.2–7.3",
+    "fr": [
+      "FR-27",
+      "FR-31"
+    ],
+    "rules": [
+      "RULE-17",
+      "RULE-21",
+      "RULE-27"
+    ],
+    "ac": [
+      "AC-043",
+      "AC-044"
+    ],
+    "questions": [
+      6,
+      17,
+      18
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-023",
+    "title": "Nhập địa điểm bằng CSV",
+    "actor": "Nhân viên có quyền nhập dữ liệu",
+    "source": "§7.3",
+    "fr": [
+      "FR-30"
+    ],
+    "rules": [
+      "RULE-20",
+      "RULE-21",
+      "RULE-23",
+      "RULE-27",
+      "RULE-28"
+    ],
+    "ac": [
+      "AC-045",
+      "AC-046"
+    ],
+    "questions": [
+      19,
+      21
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-024",
+    "title": "Xử lý báo sai địa điểm",
+    "actor": "Nhân viên được phân quyền xử lý báo sai",
+    "source": "§6.2, §7/A05",
+    "fr": [
+      "FR-28",
+      "FR-31"
+    ],
+    "rules": [
+      "RULE-18",
+      "RULE-20",
+      "RULE-21",
+      "RULE-24"
+    ],
+    "ac": [
+      "AC-047",
+      "AC-048"
+    ],
+    "questions": [
+      14,
+      18
+    ],
+    "state": "report"
+  },
+  {
+    "id": "UC-025",
+    "title": "Xử lý yêu cầu hỗ trợ",
+    "actor": "Nhân viên hỗ trợ",
+    "source": "§6.3, §7/A05",
+    "fr": [
+      "FR-29"
+    ],
+    "rules": [
+      "RULE-19",
+      "RULE-21",
+      "RULE-24",
+      "RULE-27"
+    ],
+    "ac": [
+      "AC-049",
+      "AC-050"
+    ],
+    "questions": [
+      13,
+      14,
+      18,
+      21
+    ],
+    "state": "ticket"
+  },
+  {
+    "id": "UC-026",
+    "title": "Xem báo cáo và xuất CSV",
+    "actor": "Nhân viên có quyền báo cáo",
+    "source": "§7/A06, §10",
+    "fr": [
+      "FR-32",
+      "FR-33",
+      "FR-34"
+    ],
+    "rules": [
+      "RULE-21",
+      "RULE-25",
+      "RULE-26"
+    ],
+    "ac": [
+      "AC-051",
+      "AC-052"
+    ],
+    "questions": [
+      18,
+      20,
+      22
+    ],
+    "state": ""
+  },
+  {
+    "id": "UC-027",
+    "title": "Xem số lần đã đi tại địa điểm",
+    "actor": "Thành viên",
+    "source": "CR-001 ngày 15-11-2026, kế thừa tự xác nhận ở §5.3",
+    "fr": [
+      "FR-35",
+      "FR-22"
+    ],
+    "rules": [
+      "RULE-14",
+      "RULE-15",
+      "RULE-17",
+      "RULE-29",
+      "RULE-30"
+    ],
+    "ac": [
+      "AC-053",
+      "AC-054"
+    ],
+    "questions": [
+      10,
+      11,
+      25
+    ],
+    "state": ""
+  }
+]

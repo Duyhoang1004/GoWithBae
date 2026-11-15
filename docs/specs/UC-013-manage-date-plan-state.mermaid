@@ -1,0 +1,7 @@
+stateDiagram-v2
+    [*] --> Scheduled : Tạo hợp lệ, giờ tương lai
+    Scheduled --> Scheduled : Chủ tạo sửa theo chính sách
+    Scheduled --> Cancelled : Chủ tạo hủy
+    Scheduled --> Past : Qua mốc OQ-10
+    Cancelled --> [*]
+    Past --> [*]

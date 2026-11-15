@@ -1,0 +1,8 @@
+# Local analysis skills and tooling are not project deliverables.
+.ba-skills-source/
+.ba-validation/
+.publish/
+.agents/skills/
+.codex/skills/
+.claude/skills/
+**/SKILL.md

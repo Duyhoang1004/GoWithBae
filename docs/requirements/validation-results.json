@@ -1,0 +1,147 @@
+{
+  "generated_at_utc": "2026-11-15T15:52:55.615456+00:00",
+  "scope": "Document QA only; no product/runtime testing or stakeholder approval inferred.",
+  "counts": {
+    "functional_requirements": 35,
+    "business_rules": 30,
+    "nonfunctional_requirements": 12,
+    "open_questions": 25,
+    "use_cases": 27,
+    "acceptance_criteria": 58,
+    "standalone_diagrams": 39,
+    "embedded_diagrams": 58,
+    "markdown_files_checked": 61
+  },
+  "passed": 17,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "customer_source_unchanged",
+      "passed": true,
+      "detail": "CC17DB1E2BF3B76C5DC41AF6541D14618A699D54C40DCDAE8A047A77AA452F5E"
+    },
+    {
+      "name": "FR_definitions",
+      "passed": true,
+      "detail": {
+        "count": 35,
+        "missing": [],
+        "unexpected": []
+      }
+    },
+    {
+      "name": "RULE_definitions",
+      "passed": true,
+      "detail": {
+        "count": 30,
+        "missing": [],
+        "unexpected": []
+      }
+    },
+    {
+      "name": "NFR_definitions",
+      "passed": true,
+      "detail": {
+        "count": 12,
+        "missing": [],
+        "unexpected": []
+      }
+    },
+    {
+      "name": "OQ_definitions",
+      "passed": true,
+      "detail": {
+        "count": 25,
+        "missing": [],
+        "unexpected": []
+      }
+    },
+    {
+      "name": "BR_definitions",
+      "passed": true,
+      "detail": {
+        "count": 7,
+        "missing": [],
+        "unexpected": []
+      }
+    },
+    {
+      "name": "FR_coverage_and_no_dangling",
+      "passed": true,
+      "detail": {
+        "uncovered": [],
+        "undefined": []
+      }
+    },
+    {
+      "name": "RULE_coverage_and_no_dangling",
+      "passed": true,
+      "detail": {
+        "uncovered": [],
+        "undefined": []
+      }
+    },
+    {
+      "name": "UC_sequence",
+      "passed": true,
+      "detail": 27
+    },
+    {
+      "name": "AC_unique_and_sequence",
+      "passed": true,
+      "detail": 58
+    },
+    {
+      "name": "OQ_references_defined",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "UC_template_rules_AC_and_sibling_outputs",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "CR001_confirmations_traced_to_specs_and_AC",
+      "passed": true,
+      "detail": {
+        "UC-008": true,
+        "UC-014": true,
+        "UC-027": true,
+        "dismissal_separate_from_visit_answer": true,
+        "guest_session_not_account_login": true,
+        "count_distinct_visits_not_clicks_or_consecutive_days": true
+      }
+    },
+    {
+      "name": "local_markdown_links_exist",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "utf8_and_balanced_code_fences",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "standalone_mermaid_single_root",
+      "passed": true,
+      "detail": {
+        "count": 39,
+        "errors": []
+      }
+    },
+    {
+      "name": "mermaid_parse",
+      "passed": true,
+      "detail": {
+        "tool": "mermaid.parse",
+        "version": "12.3.0",
+        "input_sha256": "8f9f2e8051b3438e47f1b06c4e4b11473fcacbb1ce3aac38695d052ad6ddb4e4",
+        "count": 97,
+        "failed": 0,
+        "errors": []
+      }
+    }
+  ]
+}

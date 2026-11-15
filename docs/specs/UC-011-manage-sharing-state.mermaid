@@ -1,0 +1,6 @@
+stateDiagram-v2
+    [*] --> Valid : Tạo cấp quyền mới
+    Valid --> Revoked : Chủ tạo thu hồi hoặc xử lý xóa tài khoản
+    Valid --> Expired : Qua hạn đã chốt
+    Revoked --> [*]
+    Expired --> [*]
